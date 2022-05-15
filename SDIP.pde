@@ -17,6 +17,8 @@ Button button1;
 Button button2;
 Button button3;
 Button smoking;
+Button sunExposure;
+Button alcohol;
 Button back;
 
 
@@ -24,13 +26,18 @@ int state = 0;
 
 void setup() {
   size(1280, 720);
-  cells.add(new Cell());
-  cells.add(new Cell());
+  //cells.add(new Cell());
+  //cells.add(new Cell());
+  for (int i = 0; i <= 100; i++){
+    cells.add(new Cell());
+  }
   bg = loadImage("bg.png");
   button1 = new Button("Start Simulation",width/2 - buttonWidth/2 ,height/2 - 300,buttonWidth,buttonHeight);
   button2 = new Button("Info",width/2 - buttonWidth/2 ,height/2 - 150,buttonWidth,buttonHeight);
   button3 = new Button("About The Developers",width/2 - buttonWidth/2 ,height/2 ,buttonWidth,buttonHeight);
-  smoking = new Button("Smoking", 1090,60, 120, 63);
+  smoking = new Button("Smoking", 1090, 80, 120, 63);
+  sunExposure = new Button("Sun Exposure", 1090, 200, 120, 63);
+  alcohol = new Button("Alchohol", 1090, 320, 120, 63);
   back = new Button("Back",20, 20, 120, 63);
   state = 0;
 }
@@ -51,6 +58,8 @@ void draw() {
    }
    smoking.display();
    back.display();
+   sunExposure.display();
+   alcohol.display();
   } else if(state == 2) {
     back.display();
   } else if(state == 3) {
