@@ -16,6 +16,8 @@ boolean rectOver;
 Button button1;
 Button button2;
 Button button3;
+Button smoking;
+Button back;
 
 
 int state = 0;
@@ -28,6 +30,8 @@ void setup() {
   button1 = new Button("Start Simulation",width/2 - buttonWidth/2 ,height/2 - 300,buttonWidth,buttonHeight);
   button2 = new Button("Info",width/2 - buttonWidth/2 ,height/2 - 150,buttonWidth,buttonHeight);
   button3 = new Button("About The Developers",width/2 - buttonWidth/2 ,height/2 ,buttonWidth,buttonHeight);
+  smoking = new Button("Smoking", 1090,60, 120, 63);
+  back = new Button("Back",20, 20, 120, 63);
   state = 0;
 }
 
@@ -45,6 +49,12 @@ void draw() {
      cell.move();
      cell.show();
    }
+   smoking.display();
+   back.display();
+  } else if(state == 2) {
+    back.display();
+  } else if(state == 3) {
+    back.display();
   }
 }
 
@@ -66,5 +76,7 @@ void mouseClicked(){
     state = 2;
   }else if(button3.overButton()){
     state = 3;
-  }
+  } else if(back.overButton()) {
+    state = 0;
+  } 
 }
