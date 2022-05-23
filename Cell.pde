@@ -10,7 +10,7 @@ class Cell {
   }
 
   Cell() {
-    this.pos  = new PVector(random(width), random(height));
+    this.pos  = new PVector(random(140 + r, width - 190 - r), random(r, height - r));
     this.r = 20;
     this.cellColor =  color(random(90, 110), 0, random(90, 110), 100);
   }
@@ -31,7 +31,7 @@ class Cell {
 
   void move() {
     PVector vel = PVector.random2D();
-    this.pos.add(vel);
+    this.pos.add(bounceOnEdges(vel));
   }
 
   void show() {
@@ -39,5 +39,22 @@ class Cell {
     fill(this.cellColor);
     ellipse(this.pos.x, this.pos.y, this.r, this.r);
     circle(this.pos.x, this.pos.y, this.r/3); 
+  }
+  
+  PVector bounceOnEdges(PVector vel) {
+    if(pos.x <= 140 + r){
+      if (vel.x < 0) vel.x *= -1;
+    }
+    if(pos.x >= width - 190 -r) {
+      if(vel.x > 0) vel.x *= -1;
+    }
+    if (pos.y <= r) {
+      if (vel.y < 0 )vel.y *= -1;
+    }
+    if(pos.y >= height - r) {
+      if (vel.y > 0 )vel.y *= -1;
+    }
+    return vel;
+    
   }
 }
