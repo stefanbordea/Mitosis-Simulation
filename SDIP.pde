@@ -81,9 +81,9 @@ void mousePressed() {
 void mouseClicked(){
   if(button1.overButton()){
     state = 1;
-  }else if(button2.overButton()){
+  }else if(button2.overButton() && state == 0){
     state = 2;
-  }else if(button3.overButton()){
+  }else if(button3.overButton() && state == 0){
     state = 3;
   } else if(back.overButton()) {
     state = 0;
