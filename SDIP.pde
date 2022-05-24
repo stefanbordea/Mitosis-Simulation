@@ -78,8 +78,8 @@ void mousePressed() {
   }
 }
 
-void mouseClicked(){
-  if(button1.overButton()){
+void mouseReleased(){
+  if(button1.overButton() && state == 0){
     state = 1;
   }else if(button2.overButton() && state == 0){
     state = 2;
