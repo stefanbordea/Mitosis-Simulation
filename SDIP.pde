@@ -21,10 +21,14 @@ Button sunExposure;
 Button alcohol;
 Button back;
 
+Cell toBeDeleted;
 
 int state = 0;
+int modCounter;
+
 
 void setup() {
+  frameRate = 60;
   size(1280, 720);
   //cells.add(new Cell());
   //cells.add(new Cell());
@@ -40,12 +44,17 @@ void setup() {
   alcohol = new Button("Alchohol", 1090, 320, 120, 63);
   back = new Button("Back",20, 20, 120, 63);
   state = 0;
+  modCounter = 300;
 }
 
 void draw() {
- 
-  background(255);
+  System.out.println(cells.size() + " " + deleteFaster());
   
+  background(255);
+  if(cells.size() >5 && frameCount % deleteFaster() == 0){
+  cells.remove(toBeDeleted);
+  }
+  Collections.sort(cells);
   if(state == 0){
     background(bg);
     button1.display();
@@ -53,8 +62,15 @@ void draw() {
     button3.display(); 
   }else if (state == 1){
      for (Cell cell : cells) {
-     cell.move();
-     cell.show();
+       if(cell.lifeTime > random(300,2500)){
+         toBeDeleted = cell;
+       }
+
+         cell.move();
+         cell.show();
+
+            
+      
    }
    smoking.display();
    back.display();
@@ -76,6 +92,17 @@ void mousePressed() {
       cells.remove(i);
     }
   }
+}
+
+int deleteFaster(){
+    if(cells.size() > 110){
+        return 100;
+    }else if(cells.size()<50 ){
+         return 500;
+    }
+    return modCounter;
+    
+    
 }
 
 void mouseReleased(){

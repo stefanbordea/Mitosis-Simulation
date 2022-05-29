@@ -1,12 +1,18 @@
-class Cell {
+import java.util.Collections;
+
+class Cell implements Comparable<Cell>{
   PVector pos;
   float r;
   color cellColor;
+  int lifeTime;
+  
 
+  
   Cell(PVector pos, float r, color cellColor) {
     this.pos = pos.copy();
     this.r = r;
     this.cellColor = cellColor;
+    this.lifeTime = 0;
   }
 
   Cell() {
@@ -34,11 +40,21 @@ class Cell {
     this.pos.add(bounceOnEdges(vel));
   }
 
+    @Override
+    int compareTo(Cell other) {
+      return this.lifeTime - other.lifeTime;
+    }
+    
+    
+    
   void show() {
+    
+    lifeTime++;
     noStroke();
     fill(this.cellColor);
     ellipse(this.pos.x, this.pos.y, this.r, this.r);
     circle(this.pos.x, this.pos.y, this.r/3); 
+    //die();
   }
   
   PVector bounceOnEdges(PVector vel) {
