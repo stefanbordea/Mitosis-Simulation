@@ -1,5 +1,5 @@
 ArrayList<Cell> cells = new ArrayList<Cell>();
-
+ArrayList<CancerCell> cancerCells = new ArrayList<CancerCell>();
 color rectColor = 200;
 int spaceBetween = 50;
 int buttonWidth = 200;
@@ -22,6 +22,7 @@ Button alcohol;
 Button back;
 
 Cell toBeDeleted;
+ArrayList<CancerCell> toBeAdded ;
 
 int state = 0;
 int modCounter;
@@ -35,6 +36,7 @@ void setup() {
   for (int i = 0; i <= 100; i++){
     cells.add(new Cell());
   }
+ 
   bg = loadImage("bg.png");
   button1 = new Button("Start Simulation",width/2 - buttonWidth/2 ,height/2 - 300,buttonWidth,buttonHeight);
   button2 = new Button("Info",width/2 - buttonWidth/2 ,height/2 - 150,buttonWidth,buttonHeight);
@@ -45,16 +47,20 @@ void setup() {
   back = new Button("Back",20, 20, 120, 63);
   state = 0;
   modCounter = 300;
+  toBeAdded = new ArrayList<CancerCell>();
 }
 
 void draw() {
   System.out.println(cells.size() + " " + deleteFaster());
-  
+  //if(toBeAdded != null){
+  //cancerCells.add(toBeAdded);
+  //}
   background(255);
   if(cells.size() >5 && frameCount % deleteFaster() == 0){
   cells.remove(toBeDeleted);
   }
-  Collections.sort(cells);
+  
+  // Collections.sort(cells);
   if(state == 0){
     background(bg);
     button1.display();
@@ -64,14 +70,36 @@ void draw() {
      for (Cell cell : cells) {
        if(cell.lifeTime > random(300,2500)){
          toBeDeleted = cell;
-       }
-
+       }     
          cell.move();
          cell.show();
-
-            
-      
    }
+    
+ for (CancerCell cancerCell : cancerCells) {
+       if(cancerCell.lifeTime > random(300,2500) && frameCount %600==0){
+         cancerCell.lifeTime = 0;
+         toBeAdded.add(cancerCell.cancerMitosis());
+       }     
+         cancerCell.move();
+         cancerCell.show();
+   }
+    for(CancerCell cancerC : toBeAdded){
+    cancerCells.add(cancerC); 
+   }
+
+  //  for(CancerCell cancerCell : cancerCells){
+   
+  //   if(cancerCell.lifeTime > random(500,1000) && frameCount % 600 == 0){
+  //     cancerCell.lifeTime = 0;
+  //     toBeAdded.add(cancerCell.cancerMitosis());      
+  //   }
+  //    cancerCell.move();
+  //    cancerCell.show();
+  //  }
+  // for(CancerCell cancerC : toBeAdded){
+  //   cancerCells.add(cancerC); 
+  //  }
+   
    smoking.display();
    back.display();
    sunExposure.display();
@@ -101,8 +129,6 @@ int deleteFaster(){
          return 500;
     }
     return modCounter;
-    
-    
 }
 
 void mouseReleased(){
@@ -115,4 +141,10 @@ void mouseReleased(){
   } else if(back.overButton()) {
     state = 0;
   } 
+  
+  if(smoking.overButton() && state == 1){
+   cancerCells.add(new CancerCell(color(random(10, 30), random(10,30), random(10, 30), 100))); 
+  
+  }
+  
 }
