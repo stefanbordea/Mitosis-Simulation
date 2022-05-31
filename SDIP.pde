@@ -33,18 +33,18 @@ void setup() {
   size(1280, 720);
   //cells.add(new Cell());
   //cells.add(new Cell());
-  for (int i = 0; i <= 100; i++){
+  for (int i = 0; i <= 100; i++) {
     cells.add(new Cell());
   }
- 
+
   bg = loadImage("bg.png");
-  button1 = new Button("Start Simulation",width/2 - buttonWidth/2 ,height/2 - 300,buttonWidth,buttonHeight);
-  button2 = new Button("Info",width/2 - buttonWidth/2 ,height/2 - 150,buttonWidth,buttonHeight);
-  button3 = new Button("About The Developers",width/2 - buttonWidth/2 ,height/2 ,buttonWidth,buttonHeight);
+  button1 = new Button("Start Simulation", width/2 - buttonWidth/2, height/2 - 300, buttonWidth, buttonHeight);
+  button2 = new Button("Info", width/2 - buttonWidth/2, height/2 - 150, buttonWidth, buttonHeight);
+  button3 = new Button("About The Developers", width/2 - buttonWidth/2, height/2, buttonWidth, buttonHeight);
   smoking = new Button("Smoking", 1090, 80, 120, 63);
   sunExposure = new Button("Sun Exposure", 1090, 200, 120, 63);
   alcohol = new Button("Alchohol", 1090, 320, 120, 63);
-  back = new Button("Back",20, 20, 120, 63);
+  back = new Button("Back", 20, 20, 120, 63);
   state = 0;
   modCounter = 300;
   toBeAdded = new ArrayList<CancerCell>();
@@ -56,57 +56,58 @@ void draw() {
   //cancerCells.add(toBeAdded);
   //}
   background(255);
-  if(cells.size() >5 && frameCount % deleteFaster() == 0){
-  cells.remove(toBeDeleted);
+  if (cells.size() >5 && frameCount % deleteFaster() == 0) {
+    cells.remove(toBeDeleted);
   }
-  
+
   // Collections.sort(cells);
-  if(state == 0){
+  if (state == 0) {
     background(bg);
     button1.display();
     button2.display();
-    button3.display(); 
-  }else if (state == 1){
-     for (Cell cell : cells) {
-       if(cell.lifeTime > random(300,2500)){
-         toBeDeleted = cell;
-       }     
-         cell.move();
-         cell.show();
-   }
-    
- for (CancerCell cancerCell : cancerCells) {
-       if(cancerCell.lifeTime > random(300,2500) && frameCount %600==0){
-         cancerCell.lifeTime = 0;
-         toBeAdded.add(cancerCell.cancerMitosis());
-       }     
-         cancerCell.move();
-         cancerCell.show();
-   }
-    for(CancerCell cancerC : toBeAdded){
-    cancerCells.add(cancerC); 
-   }
+    button3.display();
+  } else if (state == 1) {
+    for (Cell cell : cells) {
+      if (cell.lifeTime > random(300, 2500)) {
+        toBeDeleted = cell;
+      }
+      cell.move();
+      cell.show();
+    }
 
-  //  for(CancerCell cancerCell : cancerCells){
-   
-  //   if(cancerCell.lifeTime > random(500,1000) && frameCount % 600 == 0){
-  //     cancerCell.lifeTime = 0;
-  //     toBeAdded.add(cancerCell.cancerMitosis());      
-  //   }
-  //    cancerCell.move();
-  //    cancerCell.show();
-  //  }
-  // for(CancerCell cancerC : toBeAdded){
-  //   cancerCells.add(cancerC); 
-  //  }
-   
-   smoking.display();
-   back.display();
-   sunExposure.display();
-   alcohol.display();
-  } else if(state == 2) {
+    for (CancerCell cancerCell : cancerCells) {
+      if (cancerCell.lifeTime > random(300, 1000) && frameCount % 600==0) {
+        cancerCell.lifeTime = 0;
+        toBeAdded.add(cancerCell.cancerMitosis());
+      }
+      cancerCell.move();
+      cancerCell.show();
+    }
+      for (CancerCell cancerC : toBeAdded) {
+      cancerCells.add(cancerC);
+    }
+    toBeAdded.removeAll(toBeAdded);
+
+    //  for(CancerCell cancerCell : cancerCells){
+
+    //   if(cancerCell.lifeTime > random(500,1000) && frameCount % 600 == 0){
+    //     cancerCell.lifeTime = 0;
+    //     toBeAdded.add(cancerCell.cancerMitosis());
+    //   }
+    //    cancerCell.move();
+    //    cancerCell.show();
+    //  }
+    // for(CancerCell cancerC : toBeAdded){
+    //   cancerCells.add(cancerC);
+    //  }
+
+    smoking.display();
     back.display();
-  } else if(state == 3) {
+    sunExposure.display();
+    alcohol.display();
+  } else if (state == 2) {
+    back.display();
+  } else if (state == 3) {
     back.display();
   }
 }
@@ -122,29 +123,27 @@ void mousePressed() {
   }
 }
 
-int deleteFaster(){
-    if(cells.size() > 110){
-        return 100;
-    }else if(cells.size()<50 ){
-         return 500;
-    }
-    return modCounter;
+int deleteFaster() {
+  if (cells.size() > 110) {
+    return 100;
+  } else if (cells.size()<50 ) {
+    return 500;
+  }
+  return modCounter;
 }
 
-void mouseReleased(){
-  if(button1.overButton() && state == 0){
+void mouseReleased() {
+  if (button1.overButton() && state == 0) {
     state = 1;
-  }else if(button2.overButton() && state == 0){
+  } else if (button2.overButton() && state == 0) {
     state = 2;
-  }else if(button3.overButton() && state == 0){
+  } else if (button3.overButton() && state == 0) {
     state = 3;
-  } else if(back.overButton()) {
+  } else if (back.overButton()) {
     state = 0;
-  } 
-  
-  if(smoking.overButton() && state == 1){
-   cancerCells.add(new CancerCell(color(random(10, 30), random(10,30), random(10, 30), 100))); 
-  
   }
-  
+
+  if (smoking.overButton() && state == 1) {
+    cancerCells.add(new CancerCell(color(random(10, 30), random(10, 30), random(10, 30), 100)));
+  }
 }

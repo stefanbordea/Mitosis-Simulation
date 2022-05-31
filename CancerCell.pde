@@ -31,7 +31,7 @@ class CancerCell extends Cell{
   
   void move() {
     PVector vel = PVector.random2D();
-    vel.limit(2);
+    
     this.pos.add(bounceOnEdges(vel));
     
   }
