@@ -33,9 +33,7 @@ void setup() {
   size(1280, 720);
   //cells.add(new Cell());
   //cells.add(new Cell());
-  for (int i = 0; i <= 100; i++) {
-    cells.add(new Cell());
-  }
+  
 
   bg = loadImage("bg.png");
   button1 = new Button("Start Simulation", width/2 - buttonWidth/2, height/2 - 300, buttonWidth, buttonHeight);
@@ -67,6 +65,7 @@ void draw() {
     button2.display();
     button3.display();
   } else if (state == 1) {
+    
     for (Cell cell : cells) {
       if (cell.lifeTime > random(300, 2500)) {
         toBeDeleted = cell;
@@ -135,12 +134,17 @@ int deleteFaster() {
 void mouseReleased() {
   if (button1.overButton() && state == 0) {
     state = 1;
+    for (int i = 0; i <= 100; i++) {
+    cells.add(new Cell());
+    }
   } else if (button2.overButton() && state == 0) {
     state = 2;
   } else if (button3.overButton() && state == 0) {
     state = 3;
   } else if (back.overButton()) {
     state = 0;
+    cells.clear();
+    cancerCells.clear();
   }
 
   if (smoking.overButton() && state == 1) {
