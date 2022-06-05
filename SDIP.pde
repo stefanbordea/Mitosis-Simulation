@@ -1,6 +1,7 @@
 ArrayList<Cell> cells = new ArrayList<Cell>();
 ArrayList<CancerCell> cancerCells = new ArrayList<CancerCell>();
-ArrayList<CancerCell> cancerCellsYellow = new ArrayList<CancerCell>();
+ArrayList<CancerCell> cancerCellsSun = new ArrayList<CancerCell>();
+ArrayList<CancerCell> cancerCellsAlcohol = new ArrayList<CancerCell>();
 color rectColor = 200;
 int spaceBetween = 50;
 int buttonWidth = 200;
@@ -75,36 +76,11 @@ void draw() {
       cell.show();
     }
 
-    createCancerCells(cancerCellsYellow,color(255, 204, 0, 100));
-    createCancerCells(cancerCells, color(random(10, 30), random(10, 30), random(10, 30), 100));
+    createCancerCells(cancerCellsSun);
+    createCancerCells(cancerCells);
+    createCancerCells(cancerCellsAlcohol);
+    
 
-    // for (CancerCell cancerCell : cancerCells) {
-    //   if (cancerCell.lifeTime > random(300, 1000) && frameCount % 600==0) {
-    //     cancerCell.lifeTime = 0;
-    //     toBeAdded.add(cancerCell.cancerMitosis());
-    //   }
-    //   cancerCell.move();
-    //   cancerCell.show();
-    // }
-    //   for (CancerCell cancerC : toBeAdded) {
-    //   cancerCells.add(cancerC);
-    // }
-    // toBeAdded.removeAll(toBeAdded);
-
-
-
-    //  for(CancerCell cancerCell : cancerCells){
-
-    //   if(cancerCell.lifeTime > random(500,1000) && frameCount % 600 == 0){
-    //     cancerCell.lifeTime = 0;
-    //     toBeAdded.add(cancerCell.cancerMitosis());
-    //   }
-    //    cancerCell.move();
-    //    cancerCell.show();
-    //  }
-    // for(CancerCell cancerC : toBeAdded){
-    //   cancerCells.add(cancerC);
-    //  }
 
     smoking.display();
     back.display();
@@ -151,22 +127,28 @@ void mouseReleased() {
     state = 0;
     cells.clear();
     cancerCells.clear();
+    cancerCellsSun.clear();
+    cancerCellsAlcohol.clear();
+    
   }
 
   if (smoking.overButton() && state == 1) {
     cancerCells.add(new CancerCell(color(random(10, 30), random(10, 30), random(10, 30), 100)));
   }
   if(sunExposure.overButton() && state ==1){
-    cancerCellsYellow.add(new CancerCell(color(255, 204, 0, 100)));
+    cancerCellsSun.add(new CancerCell(color(201, 22, 22, 150)));
+  }
+  if(alcohol.overButton() && state ==1){
+    cancerCellsAlcohol.add(new CancerCell(color(107, 78, 14, 125)));
   }
 }
 
-void createCancerCells(ArrayList<CancerCell> cancerCells, color colour){
+void createCancerCells(ArrayList<CancerCell> cancerCells){
   
 for (CancerCell cancerCell : cancerCells) {
       if (cancerCell.lifeTime > random(300, 1000) && frameCount % 600==0) {
         cancerCell.lifeTime = 0;
-        toBeAdded.add(cancerCell.cancerMitosis(colour));
+        toBeAdded.add(cancerCell.cancerMitosis(cancerCell.cancerCellColor));
       }
       cancerCell.move();
       cancerCell.show();
