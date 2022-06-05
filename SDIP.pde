@@ -7,6 +7,7 @@ int spaceBetween = 50;
 int buttonWidth = 200;
 int buttonHeight = 100;
 int buttonRadius = 15;
+boolean flag = true;
 
 int buttonPosX = width/2 - buttonWidth/2;
 int buttonPosY = height/2 - 300;
@@ -69,7 +70,7 @@ void draw() {
   } else if (state == 1) {
     
     for (Cell cell : cells) {
-      if (cell.lifeTime > random(300, 2500)) {
+      if (cell.lifeTime > random(700, 2500)) {
         toBeDeleted = cell;
       }
       cell.move();
@@ -96,7 +97,15 @@ void draw() {
 void mousePressed() {
   for (int i = cells.size()-1; i >= 0; i--) {
     Cell cell = cells.get(i);
-    if (cell.clicked(mouseX, mouseY)) {
+    
+    for (Cell checkCell : cells) {
+      flag = true;
+      if (dist(cell.pos.x, cell.pos.y, checkCell.pos.x, checkCell.pos.y) <= cell.radius && cell.pos != checkCell.pos) {
+        flag = false;
+        break;
+      }
+    }
+    if (cell.clicked(mouseX, mouseY) && flag) {
       cells.add(cell.mitosis());
       cells.add(cell.mitosis());
       cells.remove(i);
