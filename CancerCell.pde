@@ -1,6 +1,6 @@
 class CancerCell extends Cell{
-  color cancerCellColor =color(random(10, 30), random(10,30), random(10, 30), 100); 
-
+  //color cancerCellColor =color(random(10, 30), random(10,30), random(10, 30), 100); 
+   color cancerCellColor;
   
   CancerCell(PVector pos, float radius, color cancerCellColor) {
     super(pos,radius,cancerCellColor);
@@ -13,11 +13,11 @@ class CancerCell extends Cell{
 
   }
   
-  CancerCell(color cellColor){
-   super();
-   this.cancerCellColor = cellColor;
-   //this.pos = 
-  }
+  // CancerCell(color cellColor){
+  //  super();
+  //  this.cancerCellColor = cellColor;
+  //  //this.pos = 
+  // }
     
   @Override
   void show() {
@@ -36,9 +36,15 @@ class CancerCell extends Cell{
     
   }
   
-  CancerCell cancerMitosis() {
+  // CancerCell cancerMitosis() {
    
-    CancerCell cell = new CancerCell(this.pos, this.radius,this.cancerCellColor); 
+  //   CancerCell cell = new CancerCell(this.pos, this.radius,this.cancerCellColor); 
+    
+  //   return cell;
+  // }
+  CancerCell cancerMitosis(color colour) {
+   
+    CancerCell cell = new CancerCell(this.pos, this.radius,colour); 
     
     return cell;
   }

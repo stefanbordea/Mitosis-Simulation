@@ -1,5 +1,6 @@
 ArrayList<Cell> cells = new ArrayList<Cell>();
 ArrayList<CancerCell> cancerCells = new ArrayList<CancerCell>();
+ArrayList<CancerCell> cancerCellsYellow = new ArrayList<CancerCell>();
 color rectColor = 200;
 int spaceBetween = 50;
 int buttonWidth = 200;
@@ -74,18 +75,23 @@ void draw() {
       cell.show();
     }
 
-    for (CancerCell cancerCell : cancerCells) {
-      if (cancerCell.lifeTime > random(300, 1000) && frameCount % 600==0) {
-        cancerCell.lifeTime = 0;
-        toBeAdded.add(cancerCell.cancerMitosis());
-      }
-      cancerCell.move();
-      cancerCell.show();
-    }
-      for (CancerCell cancerC : toBeAdded) {
-      cancerCells.add(cancerC);
-    }
-    toBeAdded.removeAll(toBeAdded);
+    createCancerCells(cancerCellsYellow,color(255, 204, 0, 100));
+    createCancerCells(cancerCells, color(random(10, 30), random(10, 30), random(10, 30), 100));
+
+    // for (CancerCell cancerCell : cancerCells) {
+    //   if (cancerCell.lifeTime > random(300, 1000) && frameCount % 600==0) {
+    //     cancerCell.lifeTime = 0;
+    //     toBeAdded.add(cancerCell.cancerMitosis());
+    //   }
+    //   cancerCell.move();
+    //   cancerCell.show();
+    // }
+    //   for (CancerCell cancerC : toBeAdded) {
+    //   cancerCells.add(cancerC);
+    // }
+    // toBeAdded.removeAll(toBeAdded);
+
+
 
     //  for(CancerCell cancerCell : cancerCells){
 
@@ -150,4 +156,23 @@ void mouseReleased() {
   if (smoking.overButton() && state == 1) {
     cancerCells.add(new CancerCell(color(random(10, 30), random(10, 30), random(10, 30), 100)));
   }
+  if(sunExposure.overButton() && state ==1){
+    cancerCellsYellow.add(new CancerCell(color(255, 204, 0, 100)));
+  }
+}
+
+void createCancerCells(ArrayList<CancerCell> cancerCells, color colour){
+  
+for (CancerCell cancerCell : cancerCells) {
+      if (cancerCell.lifeTime > random(300, 1000) && frameCount % 600==0) {
+        cancerCell.lifeTime = 0;
+        toBeAdded.add(cancerCell.cancerMitosis(colour));
+      }
+      cancerCell.move();
+      cancerCell.show();
+    }
+      for (CancerCell cancerC : toBeAdded) {
+      cancerCells.add(cancerC);
+    }
+    toBeAdded.removeAll(toBeAdded);
 }
