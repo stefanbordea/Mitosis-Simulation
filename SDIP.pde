@@ -83,6 +83,13 @@ void draw() {
     back.display();
     sunExposure.display();
     chemicals.display();
+    textSize(16);
+    textAlign(LEFT, CENTER);
+    text("Healthy cells : " + cells.size(), 1095, 440, 150, 65);
+    text("Cancerous cells", 1095, 495, 150, 50);
+    text("Smoking : " + cancerCells.size(), 1105, 530, 200, 50);
+    text("Sun exposure : " + cancerCellsSun.size(), 1105, 565, 200, 50);
+    text("Chemicals : " + cancerCellschemicals.size(), 1105, 600, 200, 50);
   } else if (state == 2) {
     back.display();
   } else if (state == 3) {
