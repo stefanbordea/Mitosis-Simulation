@@ -130,6 +130,13 @@ void draw() {
     back.display();
     sunExposure.display();
     chemicals.display();
+    textSize(16);
+    textAlign(LEFT, CENTER);
+    text("Healthy cells : " + cells.size(), 1095, 440, 150, 65);
+    text("Cancerous cells", 1095, 495, 150, 50);
+    text("Smoking : " + cancerCells.size(), 1105, 530, 200, 50);
+    text("Sun exposure : " + cancerCellsSun.size(), 1105, 565, 200, 50);
+    text("Chemicals : " + cancerCellschemicals.size(), 1105, 600, 200, 50);
   } else if (state == 2) {
     background(160);
     fill(0);
@@ -156,6 +163,9 @@ void draw() {
     back.display();
   } else if (state == 3) {
     back.display();
+  String s = "This simulation was created by four Computer Science students:\n Daniel Dimitriou,\n Minkyeong Youn,\n Dionysis Petrotos,\n Stefan Bordea,\n as coursework for the class \"Sofware Development in Practice\"";
+  fill(0);
+  text(s, 500, 100, 280, 320);  // Text wraps within text box
   }
 }
 
