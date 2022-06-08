@@ -42,6 +42,8 @@ String info2;
 String info3;
 String info4;
 String info5;
+String info6;
+String info7;
 //cells to be displayed in the info page
 Cell healthyInfoCell;
 CancerCell smokingInfoCell;
@@ -69,9 +71,11 @@ void setup() {
   toBeAdded = new ArrayList<CancerCell>();
   info = "Hello and welcome to our simulation. The purpose of this simulation is to show in an abstract and interactive way how healthy cells can be affected by different external factors. For this simulation, we provide 3 buttons of external factors that can potentially cause cancer: Smoking, Sun Exposure and Chemicals. Through these buttons, the user can generate cancerous cells and see how they spread and interact with healthy ones.";
   info2 = "Healthy human cells perform mitosis, a process that is initiated by a signal from the body, where the cell divides itself into 2 identical cells before dying. Cancer cells, on the other hand, do not die and keep on multiplying, resulting in a cancerous mass. In the simulation, the signal for healthy cells to perform mitosis is given by the user by clicking on a healthy cell. However, if that cell is too close to other cells it will not perform the mitosis.";
-  info3 = "Different cells are represented by different colors, as such : \nHealthy Cells:\nSmoking:\nSun Exposure:\nChemicals:";
-  info4 = "HOW TO INTERACT WITH THE SIMULATION";
-  info5 = "On the main menu, press \"Start Simulation\" \n A screen will appear with healthy cells.";
+  info3 = "Different cells are represented by different colors, as such :";
+  info4 = "Healthy Cells:";
+  info5 = "Smoking:";
+  info6 = "Sun Exposure:";
+  info7 = "Chemicals:";
 
 }
 
@@ -130,13 +134,6 @@ void draw() {
     back.display();
     sunExposure.display();
     chemicals.display();
-    textSize(16);
-    textAlign(LEFT, CENTER);
-    text("Healthy cells : " + cells.size(), 1095, 440, 150, 65);
-    text("Cancerous cells", 1095, 495, 150, 50);
-    text("Smoking : " + cancerCells.size(), 1105, 530, 200, 50);
-    text("Sun exposure : " + cancerCellsSun.size(), 1105, 565, 200, 50);
-    text("Chemicals : " + cancerCellschemicals.size(), 1105, 600, 200, 50);
   } else if (state == 2) {
     background(160);
     fill(0);
@@ -145,16 +142,20 @@ void draw() {
     text(info, 200, 50, 1000, 230);
     text(info2, 200, 250, 1000, 310);
     text(info3, 200, 440, 1000, 700);
-    healthyInfoCell = new Cell(new PVector(355,495),20,color(random(90, 110), 0, random(90, 110), 100));
+    text(info4, 200, 495, 1000, 700);
+    text(info5, 200, 535, 1000, 700);
+    text(info6, 200, 573, 1000, 700);
+    text(info7, 200, 610, 1000, 700);
+    healthyInfoCell = new Cell(new PVector(355,513),20,color(random(90, 110), 0, random(90, 110), 100));
     healthyInfoCell.show();
     
-    smokingInfoCell = new CancerCell(new PVector(355, 535),20,color(random(10, 30), random(10, 30), random(10, 30), 150));
+    smokingInfoCell = new CancerCell(new PVector(355, 553),20,color(random(10, 30), random(10, 30), random(10, 30), 150));
     smokingInfoCell.show();
     
-    sunExposureInfoCell = new CancerCell(new PVector(355, 573),20,color(181, 14, 14, 130));
+    sunExposureInfoCell = new CancerCell(new PVector(355, 592),20,color(181, 14, 14, 130));
     sunExposureInfoCell.show();
 
-    chemicalInfoCell = new CancerCell(new PVector(355,610),20,color(0, 128, 18, 150));
+    chemicalInfoCell = new CancerCell(new PVector(355,625),20,color(0, 128, 18, 150));
     chemicalInfoCell.show();
 
     // text(info4, 330, 200, 650, 590);
