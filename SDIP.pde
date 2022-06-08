@@ -25,6 +25,11 @@ Button smoking;
 Button sunExposure;
 Button chemicals;
 Button back;
+String text[]= {
+  "These are healthy cells. Click on the cells to see the Mitosis process. Or click on the buttons above to simulate the growth of cancer cells", 
+  "These cancer cells blocks our immune system's capability to repair our damaged cells.These do not stop dividing", 
+  "Did you know that 10 million people die from cancer every year?", 
+  "Did you know that cancer is the 2nd leading cause of death worldwide?"};
 
 Cell toBeDeleted;
 ArrayList<CancerCell> toBeAdded ;
@@ -38,7 +43,7 @@ void setup() {
   size(1280, 720);
   //cells.add(new Cell());
   //cells.add(new Cell());
-  
+
 
   bg = loadImage("bg.png");
   disclaimer = loadImage("disclaimer.png");
@@ -55,6 +60,8 @@ void setup() {
 }
 
 void draw() {
+
+  System.out.println("Frame Count: "+frameCount);
   System.out.println(cells.size() + " " + deleteFaster());
   //if(toBeAdded != null){
   //cancerCells.add(toBeAdded);
@@ -72,10 +79,9 @@ void draw() {
     button3.display();
     info="";
   } else if (state == 1) {
-    disclaimer.resize(50,50);
-  image(disclaimer,1000,500);
-  } else if (state == 1) {
-      background(160);
+    background(160);
+    disclaimer.resize(30, 30);
+    image(disclaimer, 20, 530);
     for (Cell cell : cells) {
       if (cell.lifeTime > random(700, 2500)) {
         toBeDeleted = cell;
@@ -83,16 +89,23 @@ void draw() {
       cell.move();
       cell.show();
     }
-  if (cancerCellsSun.isEmpty()&&cancerCells.isEmpty()&&cancerCellsAlcohol.isEmpty()){
-         info="These are healthy cells. Click on the cells to see the Mitosis process. Or click on the buttons above to simulate the growth of cancer cells";
-     }
-  else if (!(cancerCellsSun.isEmpty())||!(cancerCells.isEmpty())||!(cancerCellsAlcohol.isEmpty())) {
-       info="These cancer cells blocks our immune system's capability to repair our damaged cells.These do not stop dividing";
-     }
-     textAlign(LEFT);
-     stroke(10);
-     text(info, 900,500, 300,100); 
 
+    if (cancerCellsSun.isEmpty()&&cancerCells.isEmpty()&&cancerCellschemicals.isEmpty()) {
+      info=text[0];
+    } else if ((!(cancerCellsSun.isEmpty())||!(cancerCells.isEmpty())||!(cancerCellschemicals.isEmpty()))&& frameCount<700) {
+      info=text[1];
+    } else if  ((!(cancerCellsSun.isEmpty())||!(cancerCells.isEmpty())||!(cancerCellschemicals.isEmpty()))&&(frameCount >=700 && frameCount <=1200)) {
+      info = text[2];
+    } else info=text[3];
+
+
+    System.out.println(""+info);
+    textAlign(LEFT);
+    fill(211);
+    textSize(14);
+    text(info, 20, 560, 320, 100); 
+
+    //
 
     createCancerCells(cancerCellsSun);
     createCancerCells(cancerCells);
@@ -106,16 +119,12 @@ void draw() {
   } else if (state == 3) {
     back.display();
   }
-  
-  //text(info,1150,1150,640,670);
-     //text(info,1100,670);
-     
 }
 
 void mousePressed() {
   for (int i = cells.size()-1; i >= 0; i--) {
     Cell cell = cells.get(i);
-    
+
     for (Cell checkCell : cells) {
       flag = true;
       if (dist(cell.pos.x, cell.pos.y, checkCell.pos.x, checkCell.pos.y) <= cell.radius && cell.pos != checkCell.pos) {
@@ -129,7 +138,13 @@ void mousePressed() {
       cells.remove(i);
     }
   }
-  
+  if ((mouseX <=50 && mouseX>=20) && (mouseY<=560 &&mouseY>=530)) {
+    state =2;
+
+    /*disclaimer.resize(30, 30);
+     image(disclaimer, 1050, 480);
+     */
+  }
 }
 
 int deleteFaster() {
@@ -145,7 +160,7 @@ void mouseReleased() {
   if (button1.overButton() && state == 0) {
     state = 1;
     for (int i = 0; i <= 100; i++) {
-    cells.add(new Cell());
+      cells.add(new Cell());
     }
   } else if (button2.overButton() && state == 0) {
     state = 2;
@@ -157,32 +172,31 @@ void mouseReleased() {
     cancerCells.clear();
     cancerCellsSun.clear();
     cancerCellschemicals.clear();
-    
   }
 
   if (smoking.overButton() && state == 1) {
     cancerCells.add(new CancerCell(color(random(10, 30), random(10, 30), random(10, 30), 150)));
   }
-  if(sunExposure.overButton() && state ==1){
+  if (sunExposure.overButton() && state ==1) {
     cancerCellsSun.add(new CancerCell(color(181, 14, 14, 130)));
   }
-  if(chemicals.overButton() && state ==1){
+  if (chemicals.overButton() && state ==1) {
     cancerCellschemicals.add(new CancerCell(color(0, 128, 18, 150)));
   }
 }
 
-void createCancerCells(ArrayList<CancerCell> cancerCells){
-  
-for (CancerCell cancerCell : cancerCells) {
-      if (cancerCell.lifeTime > random(300, 1000) && frameCount % 600==0) {
-        cancerCell.lifeTime = 0;
-        toBeAdded.add(cancerCell.cancerMitosis(cancerCell.cancerCellColor));
-      }
-      cancerCell.move();
-      cancerCell.show();
+void createCancerCells(ArrayList<CancerCell> cancerCells) {
+
+  for (CancerCell cancerCell : cancerCells) {
+    if (cancerCell.lifeTime > random(300, 1000) && frameCount % 600==0) {
+      cancerCell.lifeTime = 0;
+      toBeAdded.add(cancerCell.cancerMitosis(cancerCell.cancerCellColor));
     }
-      for (CancerCell cancerC : toBeAdded) {
-      cancerCells.add(cancerC);
-    }
-    toBeAdded.removeAll(toBeAdded);
+    cancerCell.move();
+    cancerCell.show();
+  }
+  for (CancerCell cancerC : toBeAdded) {
+    cancerCells.add(cancerC);
+  }
+  toBeAdded.removeAll(toBeAdded);
 }
