@@ -164,9 +164,6 @@ void draw() {
     back.display();
   } else if (state == 3) {
     back.display();
-  String s = "This simulation was created by four Computer Science students:\n Daniel Dimitriou,\n Minkyeong Youn,\n Dionysis Petrotos,\n Stefan Bordea,\n as coursework for the class \"Sofware Development in Practice\"";
-  fill(0);
-  text(s, 500, 100, 280, 320);  // Text wraps within text box
   }
 }
 
