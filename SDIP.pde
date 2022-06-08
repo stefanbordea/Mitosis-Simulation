@@ -134,6 +134,13 @@ void draw() {
     back.display();
     sunExposure.display();
     chemicals.display();
+    textSize(16);
+    textAlign(LEFT, CENTER);
+    text("Healthy cells : " + cells.size(), 1095, 440, 150, 65);
+    text("Cancerous cells", 1095, 495, 150, 50);
+    text("Smoking : " + cancerCells.size(), 1105, 530, 200, 50);
+    text("Sun exposure : " + cancerCellsSun.size(), 1105, 565, 200, 50);
+    text("Chemicals : " + cancerCellschemicals.size(), 1105, 600, 200, 50);
   } else if (state == 2) {
     background(160);
     fill(0);
@@ -141,21 +148,21 @@ void draw() {
     textSize(23);
     text(info, 200, 50, 1000, 230);
     text(info2, 200, 250, 1000, 310);
-    text(info3, 200, 440, 1000, 700);
-    text(info4, 200, 495, 1000, 700);
+    text(info3, 200, 460, 1000, 700);
+    text(info4, 200, 500, 1000, 700);
     text(info5, 200, 535, 1000, 700);
     text(info6, 200, 573, 1000, 700);
     text(info7, 200, 610, 1000, 700);
-    healthyInfoCell = new Cell(new PVector(355,513),20,color(random(90, 110), 0, random(90, 110), 100));
+    healthyInfoCell = new Cell(new PVector(385,515),20,color(random(90, 110), 0, random(90, 110), 100));
     healthyInfoCell.show();
     
-    smokingInfoCell = new CancerCell(new PVector(355, 553),20,color(random(10, 30), random(10, 30), random(10, 30), 150));
+    smokingInfoCell = new CancerCell(new PVector(385, 550),20,color(random(10, 30), random(10, 30), random(10, 30), 150));
     smokingInfoCell.show();
     
-    sunExposureInfoCell = new CancerCell(new PVector(355, 592),20,color(181, 14, 14, 130));
+    sunExposureInfoCell = new CancerCell(new PVector(385, 587),20,color(181, 14, 14, 130));
     sunExposureInfoCell.show();
 
-    chemicalInfoCell = new CancerCell(new PVector(355,625),20,color(0, 128, 18, 150));
+    chemicalInfoCell = new CancerCell(new PVector(385,625),20,color(0, 128, 18, 150));
     chemicalInfoCell.show();
 
     // text(info4, 330, 200, 650, 590);
