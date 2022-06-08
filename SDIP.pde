@@ -1,7 +1,7 @@
 ArrayList<Cell> cells = new ArrayList<Cell>();
 ArrayList<CancerCell> cancerCells = new ArrayList<CancerCell>();
 ArrayList<CancerCell> cancerCellsSun = new ArrayList<CancerCell>();
-ArrayList<CancerCell> cancerCellsAlcohol = new ArrayList<CancerCell>();
+ArrayList<CancerCell> cancerCellschemicals = new ArrayList<CancerCell>();
 color rectColor = 200;
 int spaceBetween = 50;
 int buttonWidth = 200;
@@ -21,7 +21,7 @@ Button button2;
 Button button3;
 Button smoking;
 Button sunExposure;
-Button alcohol;
+Button chemicals;
 Button back;
 
 Cell toBeDeleted;
@@ -44,7 +44,7 @@ void setup() {
   button3 = new Button("About The Developers", width/2 - buttonWidth/2, height/2, buttonWidth, buttonHeight);
   smoking = new Button("Smoking", 1090, 80, 120, 63);
   sunExposure = new Button("Sun Exposure", 1090, 200, 120, 63);
-  alcohol = new Button("Alchohol", 1090, 320, 120, 63);
+  chemicals = new Button("Chemicals", 1090, 320, 120, 63);
   back = new Button("Back", 20, 20, 120, 63);
   state = 0;
   modCounter = 300;
@@ -68,7 +68,7 @@ void draw() {
     button2.display();
     button3.display();
   } else if (state == 1) {
-    
+      background(160);
     for (Cell cell : cells) {
       if (cell.lifeTime > random(700, 2500)) {
         toBeDeleted = cell;
@@ -76,17 +76,13 @@ void draw() {
       cell.move();
       cell.show();
     }
-
     createCancerCells(cancerCellsSun);
     createCancerCells(cancerCells);
-    createCancerCells(cancerCellsAlcohol);
-    
-
-
+    createCancerCells(cancerCellschemicals);
     smoking.display();
     back.display();
     sunExposure.display();
-    alcohol.display();
+    chemicals.display();
   } else if (state == 2) {
     back.display();
   } else if (state == 3) {
@@ -137,18 +133,18 @@ void mouseReleased() {
     cells.clear();
     cancerCells.clear();
     cancerCellsSun.clear();
-    cancerCellsAlcohol.clear();
+    cancerCellschemicals.clear();
     
   }
 
   if (smoking.overButton() && state == 1) {
-    cancerCells.add(new CancerCell(color(random(10, 30), random(10, 30), random(10, 30), 100)));
+    cancerCells.add(new CancerCell(color(random(10, 30), random(10, 30), random(10, 30), 150)));
   }
   if(sunExposure.overButton() && state ==1){
-    cancerCellsSun.add(new CancerCell(color(201, 22, 22, 150)));
+    cancerCellsSun.add(new CancerCell(color(181, 14, 14, 130)));
   }
-  if(alcohol.overButton() && state ==1){
-    cancerCellsAlcohol.add(new CancerCell(color(107, 78, 14, 125)));
+  if(chemicals.overButton() && state ==1){
+    cancerCellschemicals.add(new CancerCell(color(0, 128, 18, 150)));
   }
 }
 
