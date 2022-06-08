@@ -8,7 +8,7 @@ int buttonWidth = 200;
 int buttonHeight = 100;
 int buttonRadius = 15;
 boolean flag = true;
-String info="";
+String infoText="";
 
 int buttonPosX = width/2 - buttonWidth/2;
 int buttonPosY = height/2 - 300;
@@ -77,7 +77,7 @@ void setup() {
 
 void draw() {
 
-  System.out.println("Frame Count: "+frameCount);
+  //System.out.println("Frame Count: "+frameCount);
   System.out.println(cells.size() + " " + deleteFaster());
   //if(toBeAdded != null){
   //cancerCells.add(toBeAdded);
@@ -93,7 +93,7 @@ void draw() {
     button1.display();
     button2.display();
     button3.display();
-    info="";
+    infoText="";
   } else if (state == 1) {
     background(160);
     disclaimer.resize(30, 30);
@@ -107,19 +107,19 @@ void draw() {
     }
 
     if (cancerCellsSun.isEmpty()&&cancerCells.isEmpty()&&cancerCellschemicals.isEmpty()) {
-      info=text[0];
+      infoText=text[0];
     } else if ((!(cancerCellsSun.isEmpty())||!(cancerCells.isEmpty())||!(cancerCellschemicals.isEmpty()))&& frameCount<700) {
-      info=text[1];
+      infoText=text[1];
     } else if  ((!(cancerCellsSun.isEmpty())||!(cancerCells.isEmpty())||!(cancerCellschemicals.isEmpty()))&&(frameCount >=700 && frameCount <=1200)) {
-      info = text[2];
-    } else info=text[3];
+      infoText = text[2];
+    } else infoText=text[3];
 
 
-    System.out.println(""+info);
+    //System.out.println(""+info);
     textAlign(LEFT);
     fill(211);
     textSize(14);
-    text(info, 20, 560, 320, 100); 
+    text(infoText, 20, 560, 320, 100); 
 
     //
 
