@@ -25,6 +25,7 @@ Button smoking;
 Button sunExposure;
 Button chemicals;
 Button back;
+Button backToSim;
 String text[]= {
   "These are healthy cells. Click on the cells to see the Mitosis process. Or click on the buttons above to simulate the growth of cancer cells", 
   "These cancer cells blocks our immune system's capability to repair our damaged cells.These do not stop dividing", 
@@ -66,6 +67,7 @@ void setup() {
   sunExposure = new Button("Sun Exposure", 1090, 200, 120, 63);
   chemicals = new Button("Chemicals", 1090, 320, 120, 63);
   back = new Button("Back", 20, 20, 120, 63);
+  backToSim = new Button("Back to simulation", 20, 120, 120, 63);
   state = 0;
   modCounter = 300;
   toBeAdded = new ArrayList<CancerCell>();
@@ -101,7 +103,7 @@ void draw() {
   } else if (state == 1) {
     background(160);
     disclaimer.resize(30, 30);
-    image(disclaimer, 20, 530);
+    image(disclaimer, 20, 265);
     for (Cell cell : cells) {
       if (cell.lifeTime > random(700, 2500)) {
         toBeDeleted = cell;
@@ -121,9 +123,9 @@ void draw() {
 
     //System.out.println(""+info);
     textAlign(LEFT);
-    fill(211);
+    fill(0);
     textSize(14);
-    text(infoText, 20, 560, 320, 100); 
+    text(infoText, 3, 300, 180, 200); 
 
     //
 
@@ -164,6 +166,11 @@ void draw() {
 
     chemicalInfoCell = new CancerCell(new PVector(385,625),20,color(0, 128, 18, 150));
     chemicalInfoCell.show();
+    if (cells.size() > 0) {
+      backToSim.display();
+    }
+    
+    
 
     // text(info4, 330, 200, 650, 590);
     // text(info5, 330, 200, 650, 590);
@@ -194,12 +201,8 @@ void mousePressed() {
       cells.remove(i);
     }
   }
-  if ((mouseX <=50 && mouseX>=20) && (mouseY<=560 &&mouseY>=530)) {
+  if ((mouseX <=50 && mouseX>=20) && (mouseY<=290 &&mouseY>=265) && state == 1) {
     state =2;
-
-    /*disclaimer.resize(30, 30);
-     image(disclaimer, 1050, 480);
-     */
   }
 }
 
@@ -238,6 +241,9 @@ void mouseReleased() {
   }
   if (chemicals.overButton() && state ==1) {
     cancerCellschemicals.add(new CancerCell(color(0, 128, 18, 150)));
+  }
+  if (backToSim.overButton() && state == 2 && cells.size() > 0) {
+    state = 1;
   }
 }
 
